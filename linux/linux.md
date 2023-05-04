@@ -483,25 +483,61 @@ Linux系统有7种运行级别(runlevel)：常用的是级别3和5
 
 进行了简化，如下：
 
+##### 14.5.7.chkconfig指令
 
+介绍：
 
+通过chkconfig命令可以给服务的各个运行级别设置自启动/关闭
 
+chkconfig指令管理的服务在 /etc/init.d 查看
 
+注意：Contos7.0后，很多服务使用systemctl管理
 
+##### 14.5.8.systemctl指令
 
+基本语法：
 
+systemctl [start|stop|restart|status] 服务名
 
+systemctl 指令管理的服务在 /usr/lib/systemd/system 查看
 
+##### 14.5.9.systemctl设置服务的自启动状态
 
+systemctl list-unit-files [|grep 服务名]（查看服务开机启动状态，grep可以进行过滤）
 
+systemctl enable 服务名（设置服务开机启动）
 
+systemctl disable 服务名（关闭服务开机启动）
 
+systemctl is-enabled 服务名（查询某个服务是否是自启动的）
 
+##### 14.5.10.应用案例：
 
+查看当前防火墙的状况，关闭防火墙和重启防火墙。=>firewalld.service
 
+systemctl status firewalld
 
+systemctl stop firewalld
 
+systemctl start firewalld
 
+##### 14.5.11.细节讨论
+
+关闭或者启用防火墙后，立即生效。[telnet 测试 某个端口即可]
+
+这种方式只是临时生效，当重启系统后，还是回归以前对服务的设置。
+
+如何希望设置某个服务自启动或关闭永久生效，要使用
+
+systemctl [ebable|disable] 服务名
+
+##### 14.5.12.打开或者关闭指定端口
+
+打开防火墙之后打开指定端口，比如80、22、8080
+
+##### 14.5.13.firewall指令
+
+打开端口：firewall-cmd --permanent --add-port=端口号/协议
 
 
 
