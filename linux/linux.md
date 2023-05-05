@@ -537,17 +537,43 @@ systemctl [ebable|disable] 服务名
 
 ##### 14.5.13.firewall指令
 
-打开端口：firewall-cmd --permanent --add-port=端口号/协议
+1）打开端口：firewall-cmd --permanent --add-port=端口号/协议
 
+2）关闭端口：firewall-cmd --permanent --remove-port=端口号/协议
 
+3）重新载入，才能生效：firewall-cmd --reload
 
+4）查询端口是否开放：firewall-cmd --query-port=端口/协议
 
+##### 14.5.14.应用案例：
 
+1）启用防火墙，测试111端口是否能telnet，不行
 
+2）开放111端口
 
+firewall-cmd --premanent --add-port=111/tcp；需要firewall-cmd --reload
 
+3）再次关闭111端口
 
+firewall-cmd --premanent --remove-port=111/tcp；需要firewall-cmd --reload
 
+#### 14.6.动态监控进程
+
+##### 14.6.1.介绍：
+
+top与ps命令很相似。它们都用来显示正在执行的进程。top与ps最大的不同之处，在于top在执行一段时间可以更新正在运行的进程。
+
+##### 14.6.2.基本语法
+
+top [选项] 
+
+##### 14.6.3.选项说明
+
+| 选项    | 功能                                       |
+| ------- | ------------------------------------------ |
+| -d 秒数 | 指定top命令每隔几秒更新。默认是3秒         |
+| -i      | 使top不显示任何闲置或者僵死进程            |
+| -p      | 通过指定监控进程ID来仅仅监控某个进程的状态 |
 
 
 
