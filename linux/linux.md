@@ -6,36 +6,38 @@
 
 基本语法：man [命令或配置文件]（desc：获得帮助信息）
 
-| Name 			显示命令名和一段简短的描述 Synopsis 		命令的语法 Confi guration  命令配置信息 Description 	命令的一般性描述 Options 		命令选项描述 Exit Status 	命令的退出状态指示 Return Value 	命令的返回值 Errors 			命令的错误消息 Environment 	描述所使用的环境变量 Files 			命令用到的文件 Versions 		命令的版本信息 Conforming To 	命名所遵从的标准 Notes 			其他有帮助的资料 Bugs 			提供提交bug的途径 Example 		展示命令的用法 Authors 		命令开发人员的信息 Copyright 		命令源代码的版权状况 See Also 		与该命令类型的其他命令 |      |
-| ------------------------------------------------------------ | ---- |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
+| 字段           | 说明                       |
+| -------------- | -------------------------- |
+| Name           | 显示命令名和一段简短的描述 |
+| Synopsis       | 命令的语法                 |
+| Confi guration | 命令配置信息               |
+| Description    | 命令的一般性描述           |
+| Options        | 命令选项描述               |
+| Exit Status    | 命令的退出状态指示         |
+| Return Value   | 命令的返回值               |
+| Errors         | 命令的错误消息             |
+| Environment    | 描述所使用的环境变量       |
+| Files          | 命令用到的文件             |
+| Versions       | 命令的版本信息             |
+| Conforming To  | 命名所遵从的标准           |
+| Notes          | 其他有帮助的资料           |
+| Bugs           | 提供提交bug的途径          |
+| Example        | 展示命令的用法             |
+| Authors        | 命令开发人员的信息         |
+| Copyright      | 命令源代码的版权状况       |
+| See Also       | 与该命令类型的其他命令     |
 
-| 1 可执行程序或shell命令 2 系统调用 3 库调用 4 特殊文件 5 文件格式与约定 6 游戏 7 概览、约定及杂项 8 超级用户和系统管理员命令 9 内核例程 |      |
-| ------------------------------------------------------------ | ---- |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
-|                                                              |      |
+| 数字 | 来自的内容区域说明       |
+| ---- | ------------------------ |
+| 1    | 可执行程序或shell命令    |
+| 2    | 系统调用                 |
+| 3    | 库调用                   |
+| 4    | 特殊文件                 |
+| 5    | 文件格式与约定           |
+| 6    | 游戏                     |
+| 7    | 概览、约定及杂项         |
+| 8    | 超级用户和系统管理员命令 |
+| 9    | 内核例程                 |
 
 
 
@@ -665,17 +667,45 @@ netstat -anp | grep sshd
 
 如：ping 对方ip地址
 
+### 15.RPM与YUM
 
+#### 15.1.rpm包的管理
 
+##### 15.1.1.介绍
 
+rpm用于互联网下载包的打包及安装工具，它包含在某些Linux分发版中。它生成具有.RPM扩展名的文件。RPM是RedHat Package Manager（RedHat软件包管理工具）的缩写，类似windows的setup.exe，这一文件格式名称虽然打上了RedHat的标志，但理念是通用的。
 
+Linux的分发版本都有采用（suse，redhat，centos等等），可以算是公认的行业标准了。
 
+##### 15.1.2.rpm包的简单查询指令
 
+rpm -qa|grep xx（desc：查询已安装的rpm列表）
 
+举例：看看当前系统，是否安装了firefox
 
+指令：rpm -qa|grep firefox
 
+##### 15.1.3.rpm包名基本格式
 
+一个rpm包名：firefox-60.2.2-1.el7.centos.x86_64
 
+名称：firefox
+
+版本号：60.2.2-1
+
+适用操作系统：el7.centos.x86_64
+
+表示centos7.x的64位系统
+
+如果是i686、i386表示32位系统，noarch表示通用
+
+##### 15.1.4.rpm包的其它查询指令：
+
+rpm -qa：查询所安装的所有rpm软件包
+
+rpm -qa|more
+
+rpm -qa|grep X [rpm -qa|grep firefox]
 
 
 
