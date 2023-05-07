@@ -379,6 +379,14 @@ a）mkdir /opt/tmp2
 
 b）tar -zxvf /home/myhome.tar.gz **-C** /opt/tmp2
 
+### 13.网络配置
+
+#### 13.1.Linux网络配置原理图
+
+##### 13.1.1.画出原理图，帮助理解
+
+![image-20230507193223023](/Users/vincelee/Library/Application Support/typora-user-images/image-20230507193223023.png)
+
 ### 14.进程管理
 
 #### 14.2.显示系统执行的进程
@@ -709,13 +717,87 @@ rpm -qa|grep X [rpm -qa|grep firefox]
 
 
 
+rpm -q 软件包名：查询软件包是否安装
+
+案例：rpm -q firefox
+
+rpm -qi 软件包名：查询软件包信息
+
+rpm -ql 软件包名：查询软件包中的文件
+
+rpm -qf 文件全路径名：查询文件所属的软件包
+
+案例：
+
+1）rpm -qf /etc/passwd
+
+2）rpm -qf /etc/install.log
+
+##### 15.1.5.卸载rpm包
+
+基本语法：rpm -e RPM 包的名称 //erase
+
+应用案例：删除firefox 软件包
+
+rpm -e firefox
 
 
 
+细节讨论：
+
+1）如果其他软件包依赖于您要卸载的软件包，卸载时则会产生错误信息。
+
+如：$rpm -e foo
+
+removing these packages would break dependencies:foo is needed by bar-1.0-1
+
+2）如果我们就是要删除foo这个rpm包，可以增加参数 --nodeps，就可以强制删除，但是一般不推荐这样做，因为依赖于该软件包的程序可能无法运行
+
+如：$rpm -e --nodeps foo
+
+##### 15.1.6.安装rpm包
+
+基本语法：rpm -ivh rpm 包全路径名称
+
+参数说明：
+
+i = install 安装
+
+v = verbose 提示
+
+h = hash 进度条
 
 
 
+应用示例：
 
+演示卸载和安装firefox浏览器
+
+rpm -e firefox
+
+rpm -ivh firefox
+
+#### 15.2.yum
+
+##### 15.2.1.介绍：
+
+Yum是一个Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖性关系，并且一次安装所有依赖的软件包。
+
+##### 15.2.2.yum的基本指令
+
+查询yum服务器是否有需要安装的软件
+
+yum list|grep xx 软件列表
+
+15.2.4.yum应用示例
+
+案例：请使用yum的方式来安装firefox
+
+rpm -e firefox
+
+yum list|grep firefox
+
+yum install firefox
 
 
 
