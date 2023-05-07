@@ -393,6 +393,10 @@ b）tar -zxvf /home/myhome.tar.gz **-C** /opt/tmp2
 
 
 
+
+
+
+
 ### 14.进程管理
 
 #### 14.2.显示系统执行的进程
