@@ -385,7 +385,13 @@ b）tar -zxvf /home/myhome.tar.gz **-C** /opt/tmp2
 
 ##### 13.1.1.画出原理图，帮助理解
 
-![image-20230507193223023](/Users/vincelee/Library/Application Support/typora-user-images/image-20230507193223023.png)
+![image-20230507193223023](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/image-20230507193223023.png)
+
+
+
+
+
+
 
 ### 14.进程管理
 
