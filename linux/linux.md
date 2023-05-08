@@ -387,11 +387,73 @@ b）tar -zxvf /home/myhome.tar.gz **-C** /opt/tmp2
 
 ![image-20230507193223023](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/image-20230507193223023.png)
 
+#### 13.2.查看网络IP和网关
+
+##### 13.2.1.查看虚拟网络编辑器和修改IP地址
+
+##### 13.2.2.查看网关
+
+#### 13.3.查看windows环境中VMnet8网络配置（ipconfig指令）
+
+#### 13.4.查看linux的网络配置ifconfig
+
+#### 13.5.ping测试主机之间网络连通性
+
+##### 13.5.1.基本语法
+
+ping 目的主机（desc：测试当前服务器是否可以连接目的主机）
+
+##### 13.5.2.应用示例
+
+测试当前服务器是否可以连接百度
+
+ping www.baidu.com
+
+#### 13.6.linux网络环境配置
+
+##### 13.6.1.第一种方法（自动获取）
+
+说明：登陆后，通过界面的设置来自动获取ip，特点：linux启动后会自动获取IP，缺点是每次自动获取的ip地址可能不一样
+
+##### 13.6.2.第二种方法（指定ip）
+
+说明：直接修改配置文件来指定IP，并可以连接到外网
+
+编辑 vi /etc/sysconfig/network-scripts/ifcfg-ens33
+
+要求：将ip地址配置为静态的，比如：ip地址为192.168.200.130
 
 
 
+ifcfg-ens33文件说明
 
+| 属性                                      | 说明                                                         |
+| ----------------------------------------- | ------------------------------------------------------------ |
+| DEVICE=eth0                               | 接口名（设备，网卡）                                         |
+| HWADDR=0:0C:2x:6x:0x:xx                   | MAC地址                                                      |
+| TYPE=Ethernet                             | 网络类型（通常是Ethernet）                                   |
+| UUID=926a57ba-92c6-4231-bacb-f27e5e6a9f44 | 随机 id                                                      |
+| ONBOOT=yes                                | 系统启动的时候网络接口是否有效(yes/no)                       |
+| BOOTPROTO=static                          | IP 的配置方法[none\|static\|bootp\|dhcp]（引导时不使用协议\|静态分配IP\|BOOTP协议\|DHCP协议） |
+| IPADDR=192.168.200.130                    | IP 地址                                                      |
+| GATEWAY=192.168.200.2                     | 网关                                                         |
+| DNS1=192.168.200.2                        | 域名解析器                                                   |
 
+重启网络服务或者重启系统生效
+
+service network restart、reboot
+
+#### 13.7.设置主机名和hosts映射
+
+##### 13.7.1.设置主机名
+
+1）为了方便记忆，可以给linux系统设置主机名，也可以根据需要修改主机名
+
+2）指令hostname：查看主机名
+
+3）修改文件在 /etc/hostname 指定
+
+4）修改后，重启生效
 
 
 
