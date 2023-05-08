@@ -455,6 +455,56 @@ service network restart、reboot
 
 4）修改后，重启生效
 
+##### 13.7.2.设置hosts映射
+
+思考：如何通过主机名能够找到（比如ping）某个linux系统？
+
+
+
+windows
+
+在 C:\Windows\System32\drivers\etc\hosts 文件指定即可
+
+案例: 192.168.200.130 hspedu100
+
+
+
+linux
+
+在 /etc/hosts 文件指定
+
+案例：192.168.200.1 ThinkPad-PC
+
+#### 13.8.主机名解析过程分析（Hosts、DNS）
+
+##### 13.8.1.Hosts是什么
+
+一个文本文件，用来记录IP和Hostname（主机名）的映射关系
+
+##### 13.8.2.DNS
+
+DNS，就是Domain Name System的缩写，翻译过来就是域名系统
+
+是互联网上作为域名和IP地址相互映射的一个分布式数据库
+
+##### 13.8.3.应用实例：用户在浏览器输入了www.baidu.com
+
+1）浏览器先检查浏览器缓存中有没有该域名解析IP地址，有就先调用这个IP完成解析；如果没有，就检查DNS解析器缓存，如果有直接返回IP完成解析。这两个缓存，可以理解为本地解析器缓存
+
+2）一般来说，当电脑第一次成功访问某一网站后，在一定时间内，浏览器或操作系统会缓存他的IP地址（DNS解析记录）.如在cmd窗口中输入
+
+ipconfig /displaydns //DNS域名解析缓存
+
+ipconfig /flushdns //手动清理dns缓存
+
+3）如果本地解析器缓存没有找到对应映射，检查系统中 hosts 文件中有没有配置对应的 IP 映射，如果有，则完成解析并返回。
+
+4）如果本地DNS解析器缓存和hosts文件中均没有找到对应的IP，则到域名服务DNS进行解析域名
+
+5）示意图
+
+![image-20230508125453535](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305081254615.png)
+
 
 
 
