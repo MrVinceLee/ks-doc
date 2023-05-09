@@ -460,11 +460,49 @@ crontab [选项]
 
 */1 * * * * date >> /tmp/date
 
+
+
 案例2：每隔1分钟，将当前日期和日历都追加到 /home/mycal 文件中
 
 步骤：
 
+（1）vim /home/my.sh 写入内容 date >> /home/mycal 和 cal >> /home/mycal
 
+（2）给my.sh增加执行权限，chmod u+x /home/my.sh
+
+（3）crontab -e 增加 */1 * * * * /home/my.sh
+
+tail -f /home/mycal：实时查看文件内容
+
+
+
+案例3：
+
+每天凌晨2:00将mysql数据库testdb，备份到文件中。
+
+提示：指令为mysqldump -u root -p 密码 数据库 > /home/db.bak
+
+步骤（1）：crontab -e
+
+步骤（2）：0 2 * * * mysqldump -u root -proot testdb > /home/db.bak
+
+
+
+##### 11.1.6.crond服务相关指令
+
+crontab -r：终止任务调度
+
+crontab -l：列出当前有哪些任务调度
+
+service crond restart：重启任务调度
+
+
+
+#### 11.2.at定时任务
+
+##### 11.2.1.基本介绍
+
+1）at命令
 
 
 
