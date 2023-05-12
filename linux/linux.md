@@ -1,3 +1,19 @@
+
+
+### 6.Vi和Vim编辑器
+
+#### 6.1.vi和vim的基本介绍
+
+Linux系统会内置vi文本编辑器
+
+Vim 具有程序编辑的能力，可以看做是 Vi 的增强版本，可以主动的以字体颜色辨别语法的正确性，方便程序设计、代码补充、编辑及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。
+
+#### 6.2.vi和vim常用的三种模式
+
+
+
+
+
 ### 9.实用指令
 
 #### 9.3.帮助指令
@@ -566,11 +582,21 @@ at指定时间的方法：
 
 ![image-20230511130315849](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305111303922.png)
 
-案例2：
+案例2：atq命令来查看系统中有没有执行的工作任务
 
+![image-20230512123559263](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305121235343.png)
 
+案例3：明天 17 点钟，输出时间到指定文件内 比如：/root/date100.log
 
+![image-20230512123850404](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305121238470.png)
 
+案例4：2分钟后，输出时间到指定文件内 比如：/root/date200.log
+
+![image-20230512124024117](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305121240179.png)
+
+案例5：删除已经设置的任务，atrm的编号
+
+atrm 4 //表示将job队列，编号为 4 的 job 删除
 
 
 
