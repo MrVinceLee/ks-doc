@@ -870,7 +870,7 @@ ifcfg-ens33文件说明
 | TYPE=Ethernet                             | 网络类型（通常是Ethernet）                                   |
 | UUID=926a57ba-92c6-4231-bacb-f27e5e6a9f44 | 随机 id                                                      |
 | ONBOOT=yes                                | 系统启动的时候网络接口是否有效(yes/no)                       |
-| BOOTPROTO=static                          | IP 的配置方法[none\|static\|bootp\|dhcp]<br />（引导时不使用协议\|静态分配IP\|BOOTP协议\|DHCP协议） |
+| BOOTPROTO=static                          | IP 的配置方法<br />[none\|static\|bootp\|dhcp]<br />（引导时不使用协议\|静态分配IP\|BOOTP协议\|DHCP协议） |
 | IPADDR=192.168.200.130                    | IP 地址                                                      |
 | GATEWAY=192.168.200.2                     | 网关                                                         |
 | DNS1=192.168.200.2                        | 域名解析器                                                   |
