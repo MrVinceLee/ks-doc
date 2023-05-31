@@ -1041,6 +1041,26 @@ ls -l /root | grep "^-" | wc -l
 
 2）统计 /root 文件夹下目录的个数
 
+ls -l /root | grep "^d" | wc -l
+
+![image-20230530122401638](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301224716.png)
+
+3）统计 /root 文件夹下文件的个数，包括子文件夹里的
+
+ls -lR /root | grep "^-" | wc -l
+
+![image-20230530122515153](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301225224.png)
+
+4）统计 /root 文件夹下目录的个数，包括子文件夹里的
+
+ls -lR /root | grep "^d" |wc -l
+
+![image-20230530122729609](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301227682.png)
+
+5）以树状显示目录结构 tree 目录，注意，如果没有tree，则使用 yum install tree 安装
+
+![image-20230530122916972](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301229036.png)
+
 
 
 ### 13.网络配置
@@ -1611,6 +1631,186 @@ rpm -e firefox
 yum list|grep firefox
 
 yum install firefox
+
+### 21.日志管理
+
+#### 21.1.基本介绍
+
+1）日志文件是重要的系统信息文件，其中记录了许多重要的系统事件，包括用户的登录信息、系统的启动信息、系统的安全信息、邮件相关信息、各种服务相关信息等。
+
+2）日志对于安全来说也很重要，他记录了系统每天发生的各种事情，通过日志来检查错误发生的原因，或者受到攻击时攻击者留下的痕迹。
+
+3）可以这样理解 日志是用来记录重大事件的工具
+
+#### 21.2.系统常用的日志
+
+/var/log/ 目录就是系统日志文件的保存位置
+
+![image-20230530123956541](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301239597.png)
+
+系统常用的日志
+
+| 日志文件          | 说明                                                         |
+| ----------------- | ------------------------------------------------------------ |
+| /var/log/boot.log | 系统启动日志                                                 |
+| /var/log/corn     | 记录与系统定时任务相关的日志                                 |
+| /var/log/cups     | 记录打印信息的日志                                           |
+| /var/log/dmesg    | 记录了系统在开机时内核自检的信息。也可以使用dmesg命令直接查看内核自检信息 |
+| /var/log/btmp     | 记录错误登陆的日志。这个文件是二进制文件，不能直接用vi查看，而要使用lastb命令查看。 |
+| /var/log/lasllog  | 记录系统中所有用户最后一次的登录时间的日志。这个文件也是二进制文件。要使用 lastlog 命令查看 |
+| /var/log/mailog   | 记录邮件信息的日志                                           |
+| /var/log/message  | 记录系统重要消息的日志。这个日志文件中会记录Linux系统的绝大多数重要信息。如果系统出现问题，首先要检查的应该就是这个日志文件 |
+| /var/log/secure   | 记录验证和授权方面的信息，只要涉及账户和密码的程序都会记录，比如系统的登录、ssh的登录、su切换用户、sudo授权，甚至添加用户和修改用户密码都会记录在这个日志文件中 |
+| /var/log/wtmp     | 永久记录所有用户的登录、注销信息，同时记录系统的启动、重启、关机事件。是二进制文件，而要使用last命令查看 |
+| /var/tun/ulmp     | 记录当前已经登录的用户信息。这个文件会随着用户的登录和注销而不断变化，只记录当前登录用户的信息。这个文件不能用vi查看，而要使用w、who、users等命令查看 |
+
+应用案例
+
+使用root用户通过xshell6登录，第一次使用错误的密码，第二次使用正确的密码登录成功
+
+看看在日志文件/var/log/secure 里有没有记录相关信息
+
+#### 21.3.日志管理服务 rsyslogd
+
+CentOS7.6 日志服务是 rsyslogd，CentOS6.x 日志服务是 syslogd。rsyslogd 功能更强大。rsyslogd 的使用、日志文件的格式，和 syslogd 服务兼容的。原理示意图：
+
+![image-20230531122313503](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305311223563.png)
+
+查询 Linux 中的 rsyslogd 服务是否启动
+
+ps aux | grep "rsyslogd" | grep -v "grep"
+
+查询 rsyslogd 服务的自启动状态
+
+systemctl list-unit-files | grep rsyslog
+
+配置文件：/etc/rsyslog.conf
+
+编辑文件时的格式为：**.** 存放日志文件
+
+其中第一个 * 代表日志类型，第二个*代表日志级别
+
+1）日志类型分为：
+
+| 日志类型             | 说明                                 |
+| -------------------- | ------------------------------------ |
+| auth                 | pam产生的日志                        |
+| authpriv             | ssh、ftp 等登录信息的验证信息        |
+| corn                 | 时间任务相关                         |
+| kern                 | 内核                                 |
+| lpr                  | 打印                                 |
+| mail                 | 邮件                                 |
+| mark(syslog)-rsyslog | 服务内部的信息，时间标识             |
+| news                 | 新闻组                               |
+| user                 | 用户程序产生的相关信息               |
+| uucp                 | unix to nuix copy 主机之间相关的通信 |
+| local 1-7            | 自定义的日志设备                     |
+
+2）日志级别分为：
+
+| 级别    | 说明                                                 |
+| ------- | ---------------------------------------------------- |
+| debug   | 有调试信息的，日志通信最多                           |
+| info    | 一般信息日志，最常用                                 |
+| notice  | 最具有重要性的普通条件的信息                         |
+| warning | 警告级别                                             |
+| err     | 错误级别，阻止某个功能或者模块不能正常工作的信息     |
+| crit    | 严重级别，阻止整个系统或者整个软件不能正常工作的信息 |
+| alert   | 需要立刻修改的信息                                   |
+| emerg   | 内核崩溃等重要信息                                   |
+| none    | 什么都不记录                                         |
+
+注意:从上到下，级别从低到高，记录信息越来越少
+
+由日志服务 rsyslogd 记录的日志文件，日志文件的格式包含以下 4 列:
+
+1、事件产生的时间
+
+2、产生事件的服务器的主机名
+
+3、产生事件的服务名或程序名
+
+4、事件的具体信息
+
+
+
+1）日志如何查看实例
+
+查看一下 /var/log/secure 日志，这个日志中记录的是用户验证和授权方面的信息 来分析如何查看
+
+
+
+2）日志管理服务应用实例
+
+在/etc/rsyslog.conf 中添加一个日志文件/var/log/lwx.log,当有事件发送时(比如 sshd 服务相关事件)，该文件会接收到
+
+信息并保存. 给小伙伴演示 重启，登录 的情况，看看是否有日志保存
+
+##### 21.4.2 日志轮替文件命名
+
+1、centos7 使用 logrotate 进行日志轮替管理，要想改变日志轮替文件名字，通过 /etc/logrotate.conf 配置文件中“dateext”参数
+
+2、如果配置文件中有“dateext”参数，那么日志会用日期来作为日志文件的后缀，例如“secure-20201010”。这样日 志文件名不会重叠，也就不需要日志文件的改名， 只需要指定保存日志个数，删除多余的日志文件即可。
+
+3、如果配置文件中没有“dateext”参数，日志文件就需要进行改名了。当第一次进行日志轮替时，当前的“secure”日 志会自动改名为“secure.1”，然后新建“secure”日志， 用来保存新的日志。当第二次进行日志轮替时，“secure.1” 会自动改名为“secure.2”， 当前的“secure”日志会自动改名为“secure.1”，然后也会新建“secure”日志，用来 保存新的日志，以此类推。
+
+##### 21.4.3 logrotate 配置文件
+
+##### 21.4.4 把自己的日志加入日志轮替
+
+##### 21.4.5 应用实例
+
+#### 21.5 日志轮替机制原理
+
+日志轮替之所以可以在指定的时间备份日志，是依赖系统定时任务。在 /etc/cron.daily/目录，就会发现这个目录中是有 logrotate 文件(可执行)，logrotate 通过这个文件依赖定时任务执行的。
+
+#### 21.6 查看内存日志
+
+journalctl 可以查看内存日志, 这里我们看看常用的指令
+
+journalctl ##查看全部
+
+journalctl -n 3 ##查看最新 3 条
+
+journalctl --since 19:00 --until 19:10:10 #查看起始时间到结束时间的日志可加日期
+
+journalctl -p err ##报错日志
+
+journalctl -o verbose ##日志详细内容
+
+journalctl _PID=1245 _COMM=sshd ##查看包含这些参数的日志(在详细日志查看)或者 journalctl | grep sshd
+
+注意: journalctl 查看的是内存日志, 重启清空
+
+演示案例:
+
+使用 journalctl | grep sshd 来看看用户登录清空, 重启系统，再次查询，看看日志有什么变化没有
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
