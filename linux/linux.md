@@ -1646,7 +1646,7 @@ yum install firefox
 
 /var/log/ 目录就是系统日志文件的保存位置
 
-![image-20230530123956541](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305301239597.png)
+![image-20230531130013008](https://cdn.jsdelivr.net/gh/mrvincelee/myimages@main/imgs/202305311300060.png)
 
 系统常用的日志
 
